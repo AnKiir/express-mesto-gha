@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { codesError } = require('../const');
+const { codesError } = require('../error');
 
 router.use('*', (req, res) => {
   res
