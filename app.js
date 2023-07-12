@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
-const error404Router = reguire('./routes/error404')
+const error404Router = require('./routes/error404')
 
 const { PORT = 3000 } = process.env;
 const app = express();
