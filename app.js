@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
+const error404Router = reguire('./routes/error404')
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 
 app.use(userRouter);
 app.use(cardRouter);
+app.use(error404Router);
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)
