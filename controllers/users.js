@@ -56,10 +56,7 @@ const patchUser = (req, res, data) => {
       if (err instanceof mongoose.Error.ValidationError) {
         res.status(codesError.INCORRECT_DATA)
           .send({ message: 'Переданы некорректные данные при обновлении профиля', });
-        // } else if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        //   res.status(codesError.NOT_FOUND_DATA)
-        //     .send({ message: 'Пользователь с указанным _id не найден' });
-        // } else {
+      } else {
         res.status(codesError.DEFAULT).send({ message: 'Произошла ошибка' });
       }
     });
