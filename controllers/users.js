@@ -50,15 +50,14 @@ const postUser = (req, res) => {
 
 const patchUser = (req, res, data) => {
   User.findByIdAndUpdate(req.user._id, data, { new: true, runValidators: true })
+    .orFail()
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        res.status(codesError.INCORRECT_DATA).send({
-          message: 'Переданы некорректные данные при обновлении профиля',
-        });
+        res.status(codesError.INCORRECT_DATA)
+          .send({ message: 'Переданы некорректные данные при обновлении профиля', });
       } else if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        res
-          .status(codesError.NOT_FOUND_DATA)
+        res.status(codesError.NOT_FOUND_DATA)
           .send({ message: 'Пользователь с указанным _id не найден' });
       } else {
         res.status(codesError.DEFAULT).send({ message: 'Произошла ошибка' });
