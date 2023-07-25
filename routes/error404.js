@@ -1,10 +1,8 @@
 const router = require('express').Router();
-const { codesError } = require('../error');
+const NotFoundDataError = require('../errors/notFoundDataError');
 
-router.use('*', (req, res) => {
-  res
-    .status(codesError.NOT_FOUND_DATA)
-    .send({ message: 'Передан некорректный путь' });
+router.use('*', (req, res, next) => {
+  next(new NotFoundDataError('Передан некорректный путь'));
 });
 
 module.exports = router;
