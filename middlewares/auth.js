@@ -1,16 +1,16 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauthorizedError');
 
-const extractOwner = (header) => header.replace('Owner ', '');
+const extractBearer = (header) => header.replace('Bearer ', '');
 
 module.exports = (req, res, next) => {
-  const { auth } = req.headers;
+  const { authorization } = req.headers;
 
-  if (!auth || !auth.startsWith('Owner ')) {
+  if (!authorization || !authorization.startsWith('Bearer ')) {
     next(new UnauthorizedError('Необходима авторизация'));
   }
 
-  const token = extractOwner(auth);
+  const token = extractBearer(authorization);
   let payload;
 
   try {
