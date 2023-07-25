@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const UnauthorizedError = require('../errors/unauthorizedError');
+const ConflictError = require('../errors/conflictError');
 const IncorrectError = require('../errors/incorrectError');
 const NotFoundDataError = require('../errors/notFoundDataError');
-const ConflictError = require('../errors/conflictError');
+const UnauthorizedError = require('../errors/unauthorizedError');
 const User = require('../models/user');
 
 const getUsers = (req, res, next) => {
@@ -84,19 +84,16 @@ const patchUser = (req, res, data, next) => {
 
 const patchUserProfile = (req, res) => {
   const { name, about } = req.body;
-
   patchUser(req, res, { name, about });
 };
 
 const patchUserAvatar = (req, res) => {
   const { avatar } = req.body;
-
   patchUser(req, res, { avatar });
 };
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-
   return User.findUserByCredentials(email, password)
     .then((user) => {
       res.send({
