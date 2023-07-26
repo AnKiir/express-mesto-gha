@@ -56,7 +56,7 @@ const postUser = (req, res, next) => {
     .then((user) => {
       const { ...userCurr } = user.toObject();
       delete userCurr.password;
-      res.send({ data: userCurr });
+      res.status(201).send({ data: userCurr });
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
